@@ -6,6 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
+numpy = "*"
+scipy = "*"
+librosa = "*"
+phue = "*"
+python-vlc = "*"
 
 [requires]
 python_version = "3.8"
