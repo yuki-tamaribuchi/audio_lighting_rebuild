@@ -11,3 +11,6 @@ class DataProcessing():
         if mode=='a':
             self.sr,self.loaded_data=wavfile.read(file)
 
+    def hpss_execute(self):
+        self.left_harmonics,self.left_percussive=librosa.effects.hpss(self.loaded_data[:,0])
+        self.right_harmonics,self.right_percussive=librosa.effects.hpss(self.loaded_data[:,1])
