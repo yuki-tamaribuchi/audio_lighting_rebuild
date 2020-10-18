@@ -3,4 +3,6 @@ from scipy.io import wavfile
 import librosa
 
 class DataProcessing():
-    pass
+    
+    def __init__(self):
+        pass
