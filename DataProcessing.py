@@ -55,3 +55,6 @@ class DataProcessing():
 
     def create_color_data(self):
         pass
+
+    def create_brightness_data(self):
+        pass
