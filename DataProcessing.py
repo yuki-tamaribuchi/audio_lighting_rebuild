@@ -5,7 +5,7 @@ import librosa
 import logging
 
 formatter='%(levelname)s: %(asctime)s : %(message)s'
-logging.basicConfig(level=logging.INFO,format=formatter)
+logging.basicConfig(level=logging.DEBUG,format=formatter)
 
 class DataProcessing():
     
