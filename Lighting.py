@@ -64,7 +64,7 @@ class Lighting():
                 }
                 self.b.set_light(self.left_lights,cmd)
                 end=time.time()
-                time.sleep(self.color_interval-(end-start))
+                time.sleep(self.brightness_interval-(end-start))
 
         def right():
             for bri in self.brightness_data[:,1]:
@@ -75,7 +75,7 @@ class Lighting():
                 }
                 self.b.set_light(self.right_lights,cmd)
                 end=time.time()
-                time.sleep(self.color_interval-(end-start))
+                time.sleep(self.brightness_interval-(end-start))
 
         processes=[
             Process(target=left),
