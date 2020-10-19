@@ -1,7 +1,7 @@
 from DataProcessing import DataProcessing
 from Lighting import Lighting
 
-file = 'piano_only_bpm100_original.wav'
+file = 'piano_only_bpm60_original.wav'
 mode = 'a'
 
 
