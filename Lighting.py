@@ -32,7 +32,8 @@ class Lighting():
                     'transitiontime':0
                 }
                 self.b.set_light(self.left_lights,cmd)
-                time.sleep(self.color_interval-(time.time()-start))
+                end=time.time()
+                time.sleep(self.color_interval-(end-start))
 
         def right():
             for xy in self.color_data[:,1,:]:
@@ -42,7 +43,8 @@ class Lighting():
                     'transitiontime':0
                 }
                 self.b.set_light(self.right_lights,cmd)
-                time.sleep(self.color_interval-(time.time()-start))
+                end=time.time()
+                time.sleep(self.color_interval-(end-start))
 
         processes=[
             Process(target=left),
@@ -61,7 +63,8 @@ class Lighting():
                     'transitiontime':0
                 }
                 self.b.set_light(self.left_lights,cmd)
-                time.sleep(self.brightness_interval-(time.time()-start))
+                end=time.time()
+                time.sleep(self.color_interval-(end-start))
 
         def right():
             for bri in self.brightness_data[:,1]:
@@ -71,7 +74,8 @@ class Lighting():
                     'transitiontime':0
                 }
                 self.b.set_light(self.right_lights,cmd)
-                time.sleep(self.color_interval-(time.time()-start))
+                end=time.time()
+                time.sleep(self.color_interval-(end-start))
 
         processes=[
             Process(target=left),
