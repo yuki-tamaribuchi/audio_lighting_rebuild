@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.io import wavfile
+from scipy.signal import resample
 import librosa
 import logging
 
@@ -13,6 +14,7 @@ class DataProcessing():
         self.hpss_execute()
         self.chroma_execute('cqt_cens')
         self.create_color_data()
+        self.create_brightness_data()
 
     def load_audio_data(self,file,mode):
         logging.info('%s','Start Loading Data')
@@ -122,4 +124,15 @@ class DataProcessing():
         
 
     def create_brightness_data(self):
-        pass
+        logging.info('%s','Start creating brightness data')
+        resample_size=0
+        logging.info('%s','Resample size=%s'% str(resample_size))
+        logging.info('%s','Seconds Per Signal=%s'% str(0/resample_size))
+        left_rs=resample(np.absolute(self.percussive[:,0]),resample_size)
+        right_rs=resample(np.absolute(self.percussive[:,1]),resample_size)
+        left_max=left_rs.max()
+        right_max=right_rs.max()
+        left_bri=255 if 255<left_rs/left_max else left_rs/left_max
+        right_bri=255 if 255<right_rs/right_max else right_rs/right_max
+        self. brightness=np.stack([left_bri,right_bri],1)
+        logging.info('%s','End creating brightness data')
