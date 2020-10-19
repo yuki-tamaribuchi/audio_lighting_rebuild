@@ -20,8 +20,6 @@ class Lighting():
         self.brightness_data_length=len(self.brightness_data[:,0])
         self.color_interval=self.audio_sec/self.color_data_length
         self.brightness_interval=self.audio_sec/self.brightness_data_length
-        print(self.color_data.shape)
-        print(self.brightness_data.shape)
 
     def color(self):
 
@@ -56,25 +54,23 @@ class Lighting():
     def brightness(self):
 
         def left():
-            for i in range(0,self.brightness_data_length):
+            for bri in self.brightness_data[:,0]:
                 start=time.time() 
-                cmd_left={
-                    'bri':int(self.brightness_data[i,0]*255),
+                cmd={
+                    'bri':int(bri*255),
                     'transitiontime':0
                 }
-                
-                self.b.set_light(self.left_lights,cmd_left)
-                
+                self.b.set_light(self.left_lights,cmd)
                 time.sleep(self.brightness_interval-(time.time()-start))
 
         def right():
-            for i in range(0,self.brightness_data_length):
+            for bri in self.brightness_data[:,1]:
                 start=time.time()
-                cmd_right={
-                    'bri':int(self.brightness_data[i,0]*255),
+                cmd={
+                    'bri':int(bri*255),
                     'transitiontime':0
                 }
-                self.b.set_light(self.right_lights,cmd_right)
+                self.b.set_light(self.right_lights,cmd)
                 time.sleep(self.color_interval-(time.time()-start))
 
         processes=[
