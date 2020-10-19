@@ -23,6 +23,7 @@ class DataProcessing():
             sr,loaded_data=wavfile.read(file)
             self.sr=sr
             self.loaded_data=loaded_data.astype(np.float)
+            self.audio_sec=len(loaded_data[:,0])/sr
 
         logging.info('%s','End Loading Data')
 
@@ -125,14 +126,15 @@ class DataProcessing():
 
     def create_brightness_data(self):
         logging.info('%s','Start creating brightness data')
-        resample_size=0
+        resample_size=int((self.audio_sec/60)*600)
         logging.info('%s','Resample size=%s'% str(resample_size))
-        logging.info('%s','Seconds Per Signal=%s'% str(0/resample_size))
+        logging.info('%s','Seconds Per Signal=%s'% str(self.audio_sec/resample_size))
         left_rs=resample(np.absolute(self.percussive[:,0]),resample_size)
         right_rs=resample(np.absolute(self.percussive[:,1]),resample_size)
         left_max=left_rs.max()
         right_max=right_rs.max()
-        left_bri=255 if 255<left_rs/left_max else left_rs/left_max
-        right_bri=255 if 255<right_rs/right_max else right_rs/right_max
+
+        left_bri=[1.0 if 1.0<i/left_max else 0.0 if i<0.0 else i/left_max for i in left_rs]
+        right_bri=[1.0 if 1.0<i/right_max else 0.0 if i<0.0 else i/right_max for i in right_rs]
         self. brightness=np.stack([left_bri,right_bri],1)
         logging.info('%s','End creating brightness data')
