@@ -21,38 +21,66 @@ class Lighting():
         self.color_interval=self.audio_sec/self.color_data_length
         self.brightness_interval=self.audio_sec/self.brightness_data_length
 
-
     def color(self):
-        for i in range(0,self.color_data_length):
-            start=time.time()
-            
-            cmd_left={
-                'xy':(self.color_data[i,0,0],self.color_data[i,0,1]),
-                'transitiontime':0,
-            }
-            cmd_right={
-                'xy':(self.color_data[i,1,0],self.color_data[i,1,1]),
-                'transitiontime':0,
-            }
-            self.b.set_light(self.left_lights,cmd_left)
-            self.b.set_light(self.right_lights,cmd_right)
-            time.sleep(self.color_interval-(time.time()-start))
 
+        def left():
+            for i in range(0,self.color_data_length):
+                start=time.time()
+
+                cmd_left={
+                    'xy':(self.color_data[i,0,0],self.color_data[i,0,1]),
+                    'transitiontime':0,
+                }
+                self.b.set_light(self.left_lights,cmd_left)
+                time.sleep(self.color_interval-(time.time()-start))
+
+        def right():
+            for i in range(0,self.color_data_length):
+                start=time.time()
+                cmd_right={
+                    'xy':(self.color_data[i,1,0],self.color_data[i,1,1]),
+                    'transitiontime':0,
+                }
+                self.b.set_light(self.right_lights,cmd_right)
+                time.sleep(self.color_interval-(time.time()-start))
+
+        processes=[
+            Process(target=left),
+            Process(target=right)
+        ]
+        for p in processes:
+            p.start()
 
     def brightness(self):
-        for i in range(0,self.brightness_data_length):
-            start=time.time()
-            cmd_left={
-                'bri':int(self.brightness_data[i,0]*255),
-                'transitiontime':0
-            }
-            cmd_right={
-                'bri':int(self.brightness_data[i,0]*255),
-                'transitiontime':0
-            }
-            self.b.set_light(self.left_lights,cmd_left)
-            self.b.set_light(self.right_lights,cmd_right)
-            time.sleep(self.brightness_interval-(time.time()-start))
+
+        def left():
+            for i in range(0,self.brightness_data_length):
+                start=time.time() 
+                cmd_left={
+                    'bri':int(self.brightness_data[i,0]*255),
+                    'transitiontime':0
+                }
+                
+                self.b.set_light(self.left_lights,cmd_left)
+                
+                time.sleep(self.brightness_interval-(time.time()-start))
+
+        def right():
+            for i in range(0,self.brightness_interval):
+                start=time.time()
+                cmd_right={
+                    'bri':int(self.brightness_data[i,0]*255),
+                    'transitiontime':0
+                }
+                self.b.set_light(self.right_lights,cmd_right)
+                time.sleep(self.color_interval-(time.time()-start))
+
+        processes=[
+            Process(target=left),
+            Process(target=right)
+        ]
+        for p in processes:
+            p.start()
 
     def execute(self):
         processes=[
