@@ -1,4 +1,5 @@
 from phue import Bridge
+import time
 
 class Lighting():
     def __init__(self,ip_addr,audio_sec,color_data=None,brightness_data=None,left_lights=None,right_lights=None):
@@ -22,6 +23,7 @@ class Lighting():
 
     def color(self):
         for i in self.color_data_length:
+            start=time.time()
             cmd_left={
                 'xy':self.color_data[i,0],
                 'transitiontime':0,
@@ -32,10 +34,12 @@ class Lighting():
             }
             self.b.set_light(self.left_lights,cmd_left)
             self.b.set_light(self.right_lights,cmd_right)
+            time.sleep(self.color_interval-(time.time()-start))
 
 
     def brightness(self):
         for i in self.brightness_data_length:
+            start=time.time()
             cmd_left={
                 'bri':self.brightness_data[i,0],
                 'transitiontime':0
@@ -46,3 +50,4 @@ class Lighting():
             }
             self.b.set_light(self.left_lights,cmd_left)
             self.b.set_light(self.right_lights,cmd_right)
+            time.sleep(self.brightness_interval-(time.time()-start))
