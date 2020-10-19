@@ -52,3 +52,6 @@ class DataProcessing():
             self.chroma=np.stack([left_chroma_cens,rihgt_chroma_cens],0)
 
         logging.info('%s','End Chroma')
+
+    def create_color_data(self):
+        pass
