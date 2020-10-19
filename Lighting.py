@@ -1,6 +1,7 @@
 from phue import Bridge
 import time
 from multiprocessing import Process
+from threading import Thread
 
 class Lighting():
     def __init__(self,ip_addr,audio_sec,color_data=None,brightness_data=None,left_lights=None,right_lights=None):
@@ -31,7 +32,7 @@ class Lighting():
                     'xy':(xy[0],xy[1]),
                     'transitiontime':0
                 }
-                self.b.set_light(self.left_lights,cmd)
+                Thread(target=self.b.set_light,args=(self.left_lights,cmd)).start()
                 end=time.time()
                 time.sleep(self.color_interval-(end-start))
 
@@ -42,7 +43,7 @@ class Lighting():
                     'xy':(xy[0],xy[1]),
                     'transitiontime':0
                 }
-                self.b.set_light(self.right_lights,cmd)
+                Thread(target=self.b.set_light,args=(self.right_lights,cmd)).start()
                 end=time.time()
                 time.sleep(self.color_interval-(end-start))
 
@@ -62,7 +63,7 @@ class Lighting():
                     'bri':int(bri*255),
                     'transitiontime':0
                 }
-                self.b.set_light(self.left_lights,cmd)
+                Thread(target=self.b.set_light,args=(self.left_lights,cmd)).start()
                 end=time.time()
                 time.sleep(self.brightness_interval-(end-start))
 
@@ -73,7 +74,7 @@ class Lighting():
                     'bri':int(bri*255),
                     'transitiontime':0
                 }
-                self.b.set_light(self.right_lights,cmd)
+                Thread(target=self.b.set_light,args=(self.right_lights,cmd)).start()
                 end=time.time()
                 time.sleep(self.brightness_interval-(end-start))
 
