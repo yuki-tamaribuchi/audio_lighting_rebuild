@@ -11,10 +11,14 @@ class Player():
         self.light_instance=light_instance
 
     def play(self):
+        self.p.play()
+        time.sleep(self.audio_sec)
 
+
+    def execute(self):
         processes=[
             Process(target=self.light_instance.execute),
-            Process(target=self.p.play())
+            Process(target=self.play())
         ]
         for p in processes:
             p.start()
