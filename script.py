@@ -7,6 +7,6 @@ mode = 'a'
 
 
 dp = DataProcessing(file,mode)
-lt=Lighting('192.168.11.99',audio_sec=dp.audio_sec,color_data=dp.xy,brightness_data=dp.brightness,left_lights=3,right_lights=1)
+lt=Lighting('192.168.11.99',audio_sec=dp.audio_sec,color_data=dp.xy,brightness_data=dp.brightness,left_lights=3,right_lights=2)
 player=Player(file,dp,lt)
 player.execute()
