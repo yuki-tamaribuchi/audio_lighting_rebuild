@@ -119,13 +119,10 @@ class Lighting():
                 end=time.time()
                 time.sleep(self.brightness_interval-(end-start))
 
-        threads=[
-            Thread(target=color),
-            Thread(target=brightness)
-        ]
+        Thread(target=color).start()
+        Thread(target=brightness).start()
         
-        for t in threads:
-            t.start()
+        
 
     def right(self):
         def color():
@@ -150,19 +147,10 @@ class Lighting():
                 end=time.time()
                 time.sleep(self.brightness_interval-(end-start))
 
-        threads=[
-            Thread(target=color),
-            Thread(target=brightness)
-        ]
-        
-        for t in threads:
-            t.start()
+
+        Thread(target=color).start()
+        Thread(target=brightness).start()
 
     def execute(self):
-        processes=[
-            Process(target=self.left),
-            Process(target=self.right)
-        ]
-
-        for p in processes:
-            p.start()
+        Process(target=self.left).start()
+        Process(target=self.right).start()
