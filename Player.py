@@ -1,6 +1,7 @@
 import vlc
 import time
 from multiprocessing import Process
+from threading import Thread
 
 class Player():
     
@@ -12,10 +13,10 @@ class Player():
 
     def play(self):
         self.p.play()
-        time.sleep(self.audio_sec)
 
 
     def execute(self):
+        '''
         processes=[
             Process(target=self.light_instance.execute),
             Process(target=self.play())
@@ -23,3 +24,9 @@ class Player():
         for p in processes:
             p.start()
             p.join()
+        '''
+        self.play()
+        self.light_instance.execute()
+        time.sleep(self.audio_sec)
+
+
