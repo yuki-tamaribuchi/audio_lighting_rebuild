@@ -18,4 +18,4 @@ class Player():
         ]
         for p in processes:
             p.start()
-        time.sleep(self.audio_sec)
+            p.join()
