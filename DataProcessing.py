@@ -131,10 +131,15 @@ class DataProcessing():
         logging.info('%s','Seconds Per Signal=%s'% str(self.audio_sec/resample_size))
         left_rs=resample(np.absolute(self.percussive[:,0]),resample_size)
         right_rs=resample(np.absolute(self.percussive[:,1]),resample_size)
-        left_max=left_rs.max()
-        right_max=right_rs.max()
 
-        left_bri=[1.0 if 1.0<i/left_max else 0.0 if i<0.0 else i/left_max for i in left_rs]
-        right_bri=[1.0 if 1.0<i/right_max else 0.0 if i<0.0 else i/right_max for i in right_rs]
+        left_mean=left_rs.mean()
+        right_mean=right_rs.mean()
+        left_std=left_rs.std()
+        right_std=right_rs.std()
+        left_threshold=left_mean+(2*left_std)
+        right_threshold=right_mean+(2*right_std)
+
+        left_bri=[1.0 if 1.0<i/left_threshold else 0.0 if i<0.0 else i/left_threshold for i in left_rs]
+        right_bri=[1.0 if 1.0<i/right_threshold else 0.0 if i<0.0 else i/right_threshold for i in right_rs]
         self. brightness=np.stack([left_bri,right_bri],1)
         logging.info('%s','End creating brightness data')
