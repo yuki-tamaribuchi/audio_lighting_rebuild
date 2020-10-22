@@ -173,8 +173,8 @@ class Lighting():
                 self.b.set_light(self.right_lights,cmd_right)
             t=Thread(target=set_light())
             t.start()
-            t.join(timeout=0.08)
-            time.sleep(time.time()-start)
+            print('Col',self.color_interval-(time.time()-start))
+            time.sleep(self.color_interval-(time.time()-start))
 
     def brightness(self):
         for bri in self.brightness_data:
@@ -192,8 +192,8 @@ class Lighting():
                 self.b.set_light(self.right_lights,cmd_right)
             t=Thread(target=set_light())
             t.start()
-            t.join(timeout=0.08)
-            time.sleep(time.time()-start)
+            print('Bri',self.brightness_interval-(time.time()-start))
+            time.sleep(self.brightness_interval-(time.time()-start))
 
     def execute(self):
         processes=[
