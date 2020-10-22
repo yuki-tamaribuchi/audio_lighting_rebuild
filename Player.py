@@ -27,6 +27,6 @@ class Player():
         '''
         self.play()
         self.light_instance.execute()
-        time.sleep(self.audio_sec)
+        #time.sleep(self.audio_sec)
 
 
