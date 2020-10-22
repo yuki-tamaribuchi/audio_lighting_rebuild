@@ -25,7 +25,7 @@ class Player():
             p.start()
             p.join()
         '''
-        self.play()
+        #self.play()
         self.light_instance.execute()
         time.sleep(self.audio_sec)
 
