@@ -176,11 +176,11 @@ class Lighting():
         for bri in self.brightness_data:
             start=time.time()
             cmd_left={
-                'bri':bri[0],
+                'bri':int(255*bri[0]),
                 'transitiontime':0
             }
             cmd_right={
-                'bri':bri[1],
+                'bri':int(255*bri[1]),
                 'transitiontime':0
             }
             Thread(target=self.b.set_light(self.left_lights,cmd_left)).start()
