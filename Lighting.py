@@ -168,8 +168,12 @@ class Lighting():
                 'xy':(xy[1,0],xy[1,1]),
                 'transitiontime':0
             }
-            self.b.set_light(self.left_lights,cmd_left)
-            self.b.set_light(self.right_lights,cmd_right)
+            def set_light():
+                self.b.set_light(self.left_lights,cmd_left)
+                self.b.set_light(self.right_lights,cmd_right)
+            t=Thread(target=set_light())
+            t.start()
+            t.join(timeout=0.08)
             time.sleep(time.time()-start)
 
     def brightness(self):
@@ -183,8 +187,12 @@ class Lighting():
                 'bri':int(255*bri[1]),
                 'transitiontime':0
             }
-            self.b.set_light(self.left_lights,cmd_left)
-            self.b.set_light(self.right_lights,cmd_right)
+            def set_light():
+                self.b.set_light(self.left_lights,cmd_left)
+                self.b.set_light(self.right_lights,cmd_right)
+            t=Thread(target=set_light())
+            t.start()
+            t.join(timeout=0.08)
             time.sleep(time.time()-start)
 
     def execute(self):
@@ -195,3 +203,4 @@ class Lighting():
 
         for p in processes:
             p.start()
+            p.join()
