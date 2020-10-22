@@ -95,7 +95,7 @@ class Lighting():
             p.start()
     '''
 
-
+    '''
     def left(self):
         def color():
             for xy in self.color_data[:,0,:]:
@@ -154,3 +154,4 @@ class Lighting():
     def execute(self):
         Process(target=self.left).start()
         Process(target=self.right).start()
+    '''
