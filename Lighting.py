@@ -159,6 +159,7 @@ class Lighting():
     def color(self):
         
         for xy in self.color_data:
+            start=time.time()
             cmd_left={
                 'xy':(xy[0,0],xy[0,1]),
                 'transitiontime':0
@@ -168,8 +169,29 @@ class Lighting():
                 'transitiontime':0
             }
             Thread(target=self.b.set_light(self.left_lights,cmd_left)).start()
-            Thread(target=self.b.set_light(self.right_lights,cmd_right))
+            Thread(target=self.b.set_light(self.right_lights,cmd_right)).start()
+            time.sleep(time.time()-start)
 
-            
+    def brightness(self):
+        for bri in self.brightness_data:
+            start=time.time()
+            cmd_left={
+                'bri':bri[0],
+                'transitiontime':0
+            }
+            cmd_right={
+                'bri':bri[1],
+                'transitiontime':0
+            }
+            Thread(target=self.b.set_light(self.left_lights,cmd_left)).start()
+            Thread(target=self.b.set_light(self.right_lights,cmd_right)).start()
+            time.sleep(time.time()-start)
+
     def execute(self):
-        self.color()
+        processes=[
+            Process(target=self.color),
+            Process(target=self.brightness)
+        ]
+
+        for p in processes:
+            p.start()
