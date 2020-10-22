@@ -168,8 +168,8 @@ class Lighting():
                 'xy':(xy[1,0],xy[1,1]),
                 'transitiontime':0
             }
-            Thread(target=self.b.set_light(self.left_lights,cmd_left)).start()
-            Thread(target=self.b.set_light(self.right_lights,cmd_right)).start()
+            self.b.set_light(self.left_lights,cmd_left)
+            self.b.set_light(self.right_lights,cmd_right)
             time.sleep(time.time()-start)
 
     def brightness(self):
@@ -183,8 +183,8 @@ class Lighting():
                 'bri':int(255*bri[1]),
                 'transitiontime':0
             }
-            Thread(target=self.b.set_light(self.left_lights,cmd_left)).start()
-            Thread(target=self.b.set_light(self.right_lights,cmd_right)).start()
+            self.b.set_light(self.left_lights,cmd_left)
+            self.b.set_light(self.right_lights,cmd_right)
             time.sleep(time.time()-start)
 
     def execute(self):
