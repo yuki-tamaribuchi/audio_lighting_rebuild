@@ -50,9 +50,20 @@ class DataProcessing():
             C_left=librosa.cqt(self.harmonics[:,0],n_bins=N_BINS,fmin=FMIN)
             C_right=librosa.cqt(self.harmonics[:,1],n_bins=N_BINS,fmin=FMIN)
             left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
-            rihgt_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
+            right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
+            print(left_chroma_cens.shape)
+            print(right_chroma_cens.shape)
+            new_axis_size=left_chroma_cens.shape(axis=1)
+            print(new_axis_size)
+            left_chroma_cens_resized=np.resize(a=left_chroma_cens,new_shape=(12,43,-1))
+            right_chroma_cens_resized=np.resize(a=right_chroma_cens,new_shape=(12,43,-1))
+            print(left_chroma_cens_resized.shape)
+            print(right_chroma_cens_resized.shape)
 
-            self.chroma=np.stack([left_chroma_cens,rihgt_chroma_cens],0)
+
+            #cqt=np.stack([left_chroma_cens,rihgt_chroma_cens],0)
+
+
 
         logging.info('%s','End Chroma')
 
