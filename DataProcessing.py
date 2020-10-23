@@ -42,16 +42,15 @@ class DataProcessing():
     def chroma_execute(self,mode):
         logging.info('%s','Start Chroma')
         N_BINS=48
-        HOP_LENGTH=4096
         FMIN=130.813
         WIN_LEN_SMOOTH=20
 
         if mode=='cqt_cens':
             logging.info('%s','Selected CQT CENS')
-            C_left=librosa.cqt(self.harmonics[:,0],n_bins=N_BINS,hop_length=HOP_LENGTH,fmin=FMIN)
-            C_right=librosa.cqt(self.harmonics[:,1],n_bins=N_BINS,hop_length=HOP_LENGTH,fmin=FMIN)
-            left_chroma_cens=librosa.feature.chroma_cens(C=C_left,hop_length=HOP_LENGTH,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
-            rihgt_chroma_cens=librosa.feature.chroma_cens(C=C_right,hop_length=HOP_LENGTH,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
+            C_left=librosa.cqt(self.harmonics[:,0],n_bins=N_BINS,fmin=FMIN)
+            C_right=librosa.cqt(self.harmonics[:,1],n_bins=N_BINS,fmin=FMIN)
+            left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
+            rihgt_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH)
 
             self.chroma=np.stack([left_chroma_cens,rihgt_chroma_cens],0)
 
