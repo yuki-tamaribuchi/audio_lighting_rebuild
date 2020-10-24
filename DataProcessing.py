@@ -130,7 +130,7 @@ class DataProcessing():
 
     def create_brightness_data(self):
         logging.info('%s','Start creating brightness data')
-        resample_size=int((self.audio_sec/60)*600)
+        resample_size=int((self.audio_sec/60)*300)
         logging.info('%s','Resample size=%s'% str(resample_size))
         logging.info('%s','Seconds Per Signal=%s'% str(self.audio_sec/resample_size))
         left_rs=resample(np.absolute(self.percussive[:,0]),resample_size)
