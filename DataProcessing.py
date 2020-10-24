@@ -42,28 +42,20 @@ class DataProcessing():
     def chroma_execute(self,mode):
         logging.info('%s','Start Chroma')
 
-        #near_44100Hz_with_multiple_of_2^3
-        #512*85=43520
-        resample_rate=43520
-        resampled_left=resample(x=self.harmonics[:,0],num=resample_rate)
-        resampled_right=resample(x=self.harmonics[:,1],num=resample_rate)
-
         N_BINS=48
-        HOP_LENGTH=512
+        HOP_LENGTH=8192
         FMIN=130.813
         WIN_LEN_SMOOTH=20
 
+
         if mode=='cqt_cens':
             logging.info('%s','Selected CQT CENS')
-            C_left=librosa.cqt(y=resampled_left,sr=resample_rate,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
-            C_right=librosa.cqt(y=resampled_right,sr=resample_rate,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
+            C_left=librosa.cqt(y=self.harmonics[:,0],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
+            C_right=librosa.cqt(y=self.harmonics[:,1],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
             left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
             right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
-            left_chroma_cens_reshaped=np.reshape(a=left_chroma_cens,newshape=(-1,12,43))
-            right_chroma_cens_reshaped=np.reshape(a=right_chroma_cens,newshape=(-1,12,43))
 
-
-            #cqt=np.stack([left_chroma_cens,rihgt_chroma_cens],0)
+            self.chroma=np.stack([left_chroma_cens,right_chroma_cens],0)
 
 
 
