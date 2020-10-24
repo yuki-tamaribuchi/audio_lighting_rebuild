@@ -170,7 +170,6 @@ class Lighting():
             }
             self.b.set_light(self.left_lights,cmd_left)
             self.b.set_light(self.right_lights,cmd_right)
-            print('Col',self.color_interval-(time.time()-start))
             time.sleep(self.color_interval-(time.time()-start))
 
     def brightness(self):
@@ -186,7 +185,6 @@ class Lighting():
             }
             self.b.set_light(self.left_lights,cmd_left)
             self.b.set_light(self.right_lights,cmd_right)
-            print('Bri',self.brightness_interval-(time.time()-start))
             time.sleep(self.brightness_interval-(time.time()-start))
 
     def execute(self):
