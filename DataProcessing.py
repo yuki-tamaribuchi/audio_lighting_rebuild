@@ -152,8 +152,8 @@ class DataProcessing():
             chroma_argmax_right.append(arr_max)
 
 
-        left_rgb=chroma_rgb[i for i in chroma_argmax_left]
-        right_rgb=chroma_rgb[i for i in chroma_argmax_right]
+        left_rgb=[chroma_rgb[i] for i in chroma_argmax_left]
+        right_rgb=[chroma_rgb[i] for i in chroma_argmax_right]
 
         left_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,left_rgb))
         right_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,right_rgb))
