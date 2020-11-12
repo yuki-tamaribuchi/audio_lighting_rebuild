@@ -118,12 +118,16 @@ class DataProcessing():
             y=y/(x+y+z)
 
             return x,y
-
+        '''
         left_rgb=chroma_rgb[self.chroma[0,:,:].real.argmax(axis=0)]
         right_rgb=chroma_rgb[self.chroma[1,:,:].real.argmax(axis=0)]
         left_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,left_rgb))
         right_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,right_rgb))
         self.xy=np.stack([left_xy,right_xy],1)
+        '''        
+        left_resampled=resample(self.chroma[0,:,:],44032)
+        right_resampled=resample(self.chroma[1,:,:],44032)
+
         logging.info('%s','End creating Color Data')
     
         
