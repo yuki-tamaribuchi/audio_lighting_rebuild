@@ -130,6 +130,28 @@ class DataProcessing():
         left_resampled=resample(self.chroma[0,:,:],resample_num)
         right_resampled=resample(self.chroma[1,:,:],resample_num)
 
+        chroma_cens_length=len(left_resample.shape[1])
+        mean_block_num=86/5
+        num_splits=np.ceil(chroma_cens_length/maen_block_num)
+        chroma_cens_splited_left=np.array_split(left_resampled,num_splits,axis=1)
+        chroma_cens_splited_right=np.array_split(right_resampled,num_splits,axis=1)
+
+        chroma_argmax_left=[]
+        chroma_argmax_right=[]
+
+        for chroma_block in chroma_cens_splited_left:
+            arr=np.array(chroma_block)
+            arr_sum=np.sum(arr,axis=1)
+            arr_max=arr_sum.argmax()
+            chroma_argmax_left.append(arr_max)
+
+        for chroma_block in chroma_cens_splited_right:
+            arr=np.array(chroma_block)
+            arr_sum=np.sum(arr,axis=1)
+            arr_max=arr_sum.argmax()
+            chroma_argmax_right.append(arr_max)
+
+
         logging.info('%s','End creating Color Data')
     
         
