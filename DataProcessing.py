@@ -152,6 +152,9 @@ class DataProcessing():
             chroma_argmax_right.append(arr_max)
 
 
+        left_rgb=chroma_rgb[i for i in chroma_argmax_left]
+        right_rgb=chroma_rgb[i for i in chroma_argmax_right]
+
         logging.info('%s','End creating Color Data')
     
         
