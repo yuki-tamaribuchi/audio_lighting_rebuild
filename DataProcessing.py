@@ -50,8 +50,8 @@ class DataProcessing():
 
         if mode=='cqt_cens':
             logging.info('%s','Selected CQT CENS')
-            C_left=librosa.cqt(y=self.harmonics[:,0],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
-            C_right=librosa.cqt(y=self.harmonics[:,1],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH)
+            C_left=librosa.cqt(y=self.harmonics[:,0],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH,sparsity=0.999)
+            C_right=librosa.cqt(y=self.harmonics[:,1],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH,sparsity=0.999)
             left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
             right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
 
