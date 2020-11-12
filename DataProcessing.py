@@ -127,14 +127,11 @@ class DataProcessing():
         '''        
 
         resample_num=int(44032*self.audio_sec)
-        print(self.chroma.shape)
         left_resampled=resample(self.chroma[0,:,:],resample_num,axis=1)
         right_resampled=resample(self.chroma[1,:,:],resample_num,axis=1)
-        print(left_resampled.shape)
-        print(right_resampled.shape)
 
         chroma_cens_length=left_resampled.shape[1]
-        mean_block_num=len(86/5)
+        mean_block_num=int(86/5)
         num_splits=np.ceil(chroma_cens_length/mean_block_num)
         chroma_cens_splited_left=np.array_split(left_resampled,num_splits,axis=1)
         chroma_cens_splited_right=np.array_split(right_resampled,num_splits,axis=1)
