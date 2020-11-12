@@ -125,8 +125,10 @@ class DataProcessing():
         right_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,right_rgb))
         self.xy=np.stack([left_xy,right_xy],1)
         '''        
-        left_resampled=resample(self.chroma[0,:,:],44032)
-        right_resampled=resample(self.chroma[1,:,:],44032)
+
+        resample_num=44032*self.audio_sec
+        left_resampled=resample(self.chroma[0,:,:],resample_num)
+        right_resampled=resample(self.chroma[1,:,:],resample_num)
 
         logging.info('%s','End creating Color Data')
     
