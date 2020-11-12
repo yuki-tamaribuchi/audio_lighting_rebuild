@@ -126,7 +126,7 @@ class DataProcessing():
         self.xy=np.stack([left_xy,right_xy],1)
         '''        
 
-        resample_num=44032*self.audio_sec
+        resample_num=int(44032*self.audio_sec)
         left_resampled=resample(self.chroma[0,:,:],resample_num)
         right_resampled=resample(self.chroma[1,:,:],resample_num)
 
