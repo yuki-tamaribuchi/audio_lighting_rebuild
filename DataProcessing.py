@@ -127,8 +127,11 @@ class DataProcessing():
         '''        
 
         resample_num=int(44032*self.audio_sec)
-        left_resampled=resample(self.chroma[0,:,:],resample_num)
-        right_resampled=resample(self.chroma[1,:,:],resample_num)
+        print(self.chroma.shape)
+        left_resampled=resample(self.chroma[0,:,:],resample_num,axis=1)
+        right_resampled=resample(self.chroma[1,:,:],resample_num,axis=1)
+        print(left_resampled.shape)
+        print(right_resampled.shape)
 
         chroma_cens_length=left_resampled.shape[1]
         mean_block_num=len(86/5)
