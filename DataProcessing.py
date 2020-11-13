@@ -135,7 +135,6 @@ class DataProcessing():
         left_resampled=resample(self.chroma[0,:,:],resample_num,axis=1)
         right_resampled=resample(self.chroma[1,:,:],resample_num,axis=1)
         '''
-        print(self.chroma.shape)
         chroma_cens_length=self.chroma.shape[2]
         mean_block_num=int(86/5)
         num_splits=np.ceil(chroma_cens_length/mean_block_num)
