@@ -144,6 +144,12 @@ class DataProcessing():
         chroma_argmax_left=[]
         chroma_argmax_right=[]
 
+        def calc_max(block):
+            arr=np.array(block)
+            arr_sum=np.sum(arr,axis=1)
+            arr_max=arr_sum.argmax()
+            return arr_max
+
         for chroma_block in chroma_cens_splited_left:
             arr=np.array(chroma_block)
             arr_sum=np.sum(arr,axis=1)
