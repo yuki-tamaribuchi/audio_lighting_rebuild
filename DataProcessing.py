@@ -141,15 +141,19 @@ class DataProcessing():
         chroma_cens_splited_left=np.array_split(self.chroma[0,:,:],num_splits,axis=1)
         chroma_cens_splited_right=np.array_split(self.chroma[1,:,:],num_splits,axis=1)
 
-        chroma_argmax_left=[]
-        chroma_argmax_right=[]
+        #chroma_argmax_left=[]
+        #chroma_argmax_right=[]
 
         def calc_max(block):
             arr=np.array(block)
             arr_sum=np.sum(arr,axis=1)
             arr_max=arr_sum.argmax()
             return arr_max
+        
+        chroma_argmax_left=[calc_max(block) for block in chroma_cens_splited_left]
+        chroma_argmax_right=[calc_max(block) for block in chroma_cens_splited_right]
 
+        '''
         for chroma_block in chroma_cens_splited_left:
             arr=np.array(chroma_block)
             arr_sum=np.sum(arr,axis=1)
@@ -161,7 +165,7 @@ class DataProcessing():
             arr_sum=np.sum(arr,axis=1)
             arr_max=arr_sum.argmax()
             chroma_argmax_right.append(arr_max)
-
+        '''
 
         left_rgb=[chroma_rgb[i] for i in chroma_argmax_left]
         right_rgb=[chroma_rgb[i] for i in chroma_argmax_right]
