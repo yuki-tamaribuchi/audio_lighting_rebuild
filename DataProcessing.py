@@ -43,17 +43,21 @@ class DataProcessing():
         logging.info('%s','Start Chroma')
 
         N_BINS=48
-        HOP_LENGTH=8192
         FMIN=130.813
-        WIN_LEN_SMOOTH=20
 
 
         if mode=='cqt_cens':
             logging.info('%s','Selected CQT CENS')
-            C_left=librosa.cqt(y=self.harmonics[:,0],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH,sparsity=0.999)
-            C_right=librosa.cqt(y=self.harmonics[:,1],sr=self.sr,n_bins=N_BINS,fmin=FMIN,hop_length=HOP_LENGTH,sparsity=0.999)
-            left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
-            right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN,win_len_smooth=WIN_LEN_SMOOTH,hop_length=HOP_LENGTH)
+
+            
+            resample_num=int(44032*self.audio_sec)
+            left_resampled=resample(self.harmonics[:,0],resample_num)
+            right_resampled=resample(self.harmonics[:,1],resample_num)
+
+            C_left=librosa.cqt(y=left_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.999) 
+            C_right=librosa.cqt(y=right_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.999) 
+            left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN)
+            right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN)
 
             self.chroma=np.stack([left_chroma_cens,right_chroma_cens],0)
 
@@ -125,16 +129,18 @@ class DataProcessing():
         right_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,right_rgb))
         self.xy=np.stack([left_xy,right_xy],1)
         '''        
-
+        
+        '''
         resample_num=int(44032*self.audio_sec)
         left_resampled=resample(self.chroma[0,:,:],resample_num,axis=1)
         right_resampled=resample(self.chroma[1,:,:],resample_num,axis=1)
-
-        chroma_cens_length=left_resampled.shape[1]
+        '''
+        print(self.chroma.shape)
+        chroma_cens_length=self.chroma.shape[2]
         mean_block_num=int(86/5)
         num_splits=np.ceil(chroma_cens_length/mean_block_num)
-        chroma_cens_splited_left=np.array_split(left_resampled,num_splits,axis=1)
-        chroma_cens_splited_right=np.array_split(right_resampled,num_splits,axis=1)
+        chroma_cens_splited_left=np.array_split(self.chroma[0,:,:],num_splits,axis=1)
+        chroma_cens_splited_right=np.array_split(self.chroma[1,:,:],num_splits,axis=1)
 
         chroma_argmax_left=[]
         chroma_argmax_right=[]
@@ -154,6 +160,7 @@ class DataProcessing():
 
         left_rgb=[chroma_rgb[i] for i in chroma_argmax_left]
         right_rgb=[chroma_rgb[i] for i in chroma_argmax_right]
+        print(left_rgb)
 
         left_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,left_rgb))
         right_xy=np.nan_to_num(np.apply_along_axis(convert_rgb_to_xy,1,right_rgb))
