@@ -21,7 +21,7 @@ class Lighting():
         self.brightness_data_length=len(self.brightness_data[:,0])
         self.color_interval=self.audio_sec/self.color_data_length
         self.brightness_interval=self.audio_sec/self.brightness_data_length
-
+ 
     '''
     def color(self):
 
