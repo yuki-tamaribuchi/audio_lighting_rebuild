@@ -9,7 +9,6 @@ pylint = "*"
 [packages]
 numpy = "*"
 scipy = "*"
-librosa = "*"
 phue = "*"
 python-vlc = "*"
 
