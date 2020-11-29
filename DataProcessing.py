@@ -54,8 +54,8 @@ class DataProcessing():
             left_resampled=resample(self.harmonics[:,0],resample_num)
             right_resampled=resample(self.harmonics[:,1],resample_num)
 
-            C_left=librosa.cqt(y=left_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.62) 
-            C_right=librosa.cqt(y=right_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.62) 
+            C_left=librosa.cqt(y=left_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.6) 
+            C_right=librosa.cqt(y=right_resampled,sr=self.sr,n_bins=N_BINS,fmin=FMIN,sparsity=0.6) 
             left_chroma_cens=librosa.feature.chroma_cens(C=C_left,fmin=FMIN)
             right_chroma_cens=librosa.feature.chroma_cens(C=C_right,fmin=FMIN)
 
