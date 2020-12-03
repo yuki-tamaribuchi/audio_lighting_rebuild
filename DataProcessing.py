@@ -150,6 +150,7 @@ class DataProcessing():
         def calc_max(block):
             arr=np.array(block)
             arr_sum=np.sum(arr,axis=1)
+            arr_sum=np.append(arr_sum,[0.00000000001])
             arr_max=arr_sum.argmax()
             return arr_max
         
