@@ -106,7 +106,10 @@ class DataProcessing():
             [255,165,0],
 
             #B,シ,Copper
-            [184,115,51]
+            [184,115,51],
+
+            #No sound,無音,White
+            [0,0,0]
         ])
 
         def convert_rgb_to_xy(data):
