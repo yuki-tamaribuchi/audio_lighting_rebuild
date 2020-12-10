@@ -13,6 +13,7 @@ phue = "*"
 python-vlc = "*"
 librosa = "==0.6.3"
 numba = "==0.48"
+moviepy = "*"
 
 [requires]
 python_version = "3.8"
