@@ -38,9 +38,11 @@ class DataProcessing():
         logging.info('%s','End Loading Data')
 
     def hpss_execute(self):
+        MARGIN=(1,3)
+
         logging.info('%s','Start HPSS')
-        left_h,left_p=librosa.effects.hpss(self.loaded_data[:,0])
-        right_h,right_p=librosa.effects.hpss(self.loaded_data[:,1])
+        left_h,left_p=librosa.effects.hpss(self.loaded_data[:,0],margin=MARGIN)
+        right_h,right_p=librosa.effects.hpss(self.loaded_data[:,1],margin=MARGIN)
 
         self.harmonics=np.stack([left_h,right_h],1)
         self.percussive=np.stack([left_p,right_p],1)
