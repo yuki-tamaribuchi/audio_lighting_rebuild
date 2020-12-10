@@ -2,8 +2,8 @@ from DataProcessing import DataProcessing
 from Lighting import Lighting
 from Player import Player
 
-file = 'piano_only_bpm60_original.wav'
-mode = 'a'
+file = 'sample03.mp4'
+mode = 'v'
 
 
 dp = DataProcessing(file,mode)
