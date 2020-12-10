@@ -3,6 +3,7 @@ from scipy.io import wavfile
 from scipy.signal import resample
 import librosa
 import logging
+from moviepy.video.io.VideoFileClip import VideoFileClip
 
 formatter='%(levelname)s: %(asctime)s : %(message)s'
 logging.basicConfig(level=logging.INFO,format=formatter)
@@ -24,6 +25,15 @@ class DataProcessing():
             self.sr=sr
             self.loaded_data=loaded_data.astype(np.float)
             self.audio_sec=len(loaded_data[:,0])/sr
+
+        if mode=='v':
+            logging.info('%s','Loading Audio File')
+            video_data=VideoFileClip(file)
+            audio_data=video_data.audio
+            self.loaded_data=audio_data.to_soundarray()
+            self.sr=44100
+            #self.dump_audio_array_length()
+            self.audio_sec=len(self.loaded_data[:,0])/self.sr
 
         logging.info('%s','End Loading Data')
 
