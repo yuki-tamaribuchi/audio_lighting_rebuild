@@ -54,7 +54,7 @@ class DataProcessing():
     def chroma_execute(self,mode):
         logging.info('%s','Start Chroma')
 
-        N_BINS=48
+        N_BINS=60
         FMIN=130.813
 
 
