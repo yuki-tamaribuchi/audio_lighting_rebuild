@@ -38,7 +38,7 @@ class DataProcessing():
         logging.info('%s','End Loading Data')
 
     def hpss_execute(self):
-        MARGIN=(1,3)
+        MARGIN=(2,3)
 
         logging.info('%s','Start HPSS')
         left_h,left_p=librosa.effects.hpss(self.loaded_data[:,0],margin=MARGIN)
